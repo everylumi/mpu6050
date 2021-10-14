@@ -20,6 +20,6 @@ setup(name='mpu6050-raspberrypi',
       author_email='everylumi@gmail.com',
       license='MIT',
       packages=['mpu6050'],
-      scripts=['bin/mpu6050-example'],
+      scripts=['example.py'],
       zip_safe=False,
       long_description=readme())
