@@ -30,6 +30,7 @@ First, ensure the device is available on the i2c bus:
 
 ```
 $ sudo i2cdetect -y 1
+# Master
      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
 00:          -- -- -- -- -- -- -- -- -- -- -- -- --
 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -39,6 +40,17 @@ $ sudo i2cdetect -y 1
 50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 60: -- -- -- -- -- -- -- -- 68 -- -- -- -- -- -- --
 70: -- -- -- -- -- -- -- --
+
+# Slave
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- --
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- -- 69 -- -- -- -- -- --
+70: -- -- -- -- -- -- -- --
 ```
 
 Within Python, the device can be used like this:
@@ -47,7 +59,7 @@ Within Python, the device can be used like this:
 from mpu6050 import mpu6050
 from time import sleep
 
-sensor = mpu6050(0x68)
+sensor = mpu6050(0x68)   # Slave : 0x69
 
 while True:
     accel_data = sensor.get_accel_data()
