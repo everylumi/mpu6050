@@ -13,6 +13,17 @@ sudo python3 setup.py install #Python3
 sudo python setup.py install #Python2
 ```
 
+
+## Connection
+
+VCC  -->   Raspberry Pi 3.3V  
+GND  -->   Raspberry Pi GND  
+SCL  -->   Raspberry Pi SCL  
+SDA  -->   Raspberry Pi SDA  
+AD0  -->   Raspberry Pi 3.3V, only for Slave connection
+(I2C address: Master 0x68, Slave 0x69)
+
+
 ## Usage
 
 First, ensure the device is available on the i2c bus:
