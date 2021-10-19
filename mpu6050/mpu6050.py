@@ -242,14 +242,14 @@ class mpu6050:
     # Accelerometer Angle Degree ----------------------------
     def dist(self,a,b):
         return math.sqrt((a*a)+(b*b))
-    
+
     def get_accel_rotation(self):
         accel_data = self.get_accel_data()
-        radians_x = math.atan2(accel_data['y'], self.dist(accel_data['x'],accel_data['z']))
-        radians_y = math.atan2(accel_data['x'], self.dist(accel_data['y'],accel_data['z']))
+        radians_x = math.atan2(accel_data['x'], self.dist(accel_data['y'],accel_data['z']))
+        radians_y = math.atan2(accel_data['y'], self.dist(accel_data['x'],accel_data['z']))
         radians_z = math.atan2(self.dist(accel_data['x'],accel_data['y']),accel_data['z'])
-        return {'x': -math.degrees(radians_x), 'y': math.degrees(radians_y), 'z': -math.degrees(radians_z)}        
-
+        return {'x': -math.degrees(radians_x), 'y': math.degrees(radians_y), 'z': -math.degrees(radians_z)}    
+  
     # Gyroscope Angle Degree --------------------------------    
     def get_gyro_rotation(self):
         global t_prev
