@@ -1,4 +1,6 @@
 import smbus
+import math
+import datetime
 
 class mpu6050:
 
@@ -45,6 +47,9 @@ class mpu6050:
 
     ACCEL_CONFIG = 0x1C
     GYRO_CONFIG = 0x1B
+    
+    global t_prev
+    t_prev = int(time.time()*1000000.0)
 
     def __init__(self, address, bus=1):
         self.address = address
@@ -232,16 +237,45 @@ class mpu6050:
         accel = self.get_accel_data()
         gyro = self.get_gyro_data()
 
-        return [accel, gyro, temp]
+        return [accel, gyro, temp]   
+ 
+    # Accelerometer Angle Degree ----------------------------
+    def dist(self,a,b):
+        return math.sqrt((a*a)+(b*b))
+    
+    def get_accel_rotation(self):
+        accel_data = self.get_accel_data()
+        radians_x = math.atan2(accel_data['y'], self.dist(accel_data['x'],accel_data['z']))
+        radians_y = math.atan2(accel_data['x'], self.dist(accel_data['y'],accel_data['z']))
+        radians_z = math.atan2(self.dist(accel_data['x'],accel_data['y']),accel_data['z'])
+        return {'x': -math.degrees(radians_x), 'y': math.degrees(radians_y), 'z': -math.degrees(radians_z)}        
+
+    # Gyroscope Angle Degree --------------------------------    
+    def get_gyro_rotation(self):
+        global t_prev
+        gyro_data = self.get_gyro_data()
+        t_now = int(time.time()*1000000.0)
+        dt_n = t_now - t_prev
+        t_prev = t_now
+        dt = dt_n /1000000
+        
+        gyro_anGle_x = gyro_data['x'] * dt
+        gyro_anGle_y = gyro_data['y'] * dt
+        gyro_anGle_z = gyro_data['z'] * dt
+        return {'x': gyro_anGle_x, 'y': gyro_anGle_y, 'z': gyro_anGle_z}        
 
 if __name__ == "__main__":
     mpu = mpu6050(0x68)
+    
     print(mpu.get_temp())
+
     accel_data = mpu.get_accel_data()
     print(accel_data['x'])
     print(accel_data['y'])
     print(accel_data['z'])
+    
     gyro_data = mpu.get_gyro_data()
     print(gyro_data['x'])
     print(gyro_data['y'])
     print(gyro_data['z'])
+

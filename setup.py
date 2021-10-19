@@ -4,8 +4,8 @@ def readme():
     with open('README.md') as f:
         return f.read()
 
-setup(name='mpu6050-raspberrypi',
-      version='1.1',
+setup(name='mpu6050',
+      version='1.2',
       description='A Python module for accessing the MPU-6050 digital accelerometer and gyroscope on a Raspberry Pi.',
       classifiers=[
           'License :: OSI Approved :: MIT License',
