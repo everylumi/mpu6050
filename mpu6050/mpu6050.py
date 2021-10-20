@@ -1,6 +1,6 @@
 import smbus
 import math
-import datetime
+import time
 
 class mpu6050:
 

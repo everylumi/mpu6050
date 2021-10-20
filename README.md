@@ -6,13 +6,20 @@ A Python module for accessing the MPU-6050 digital accelerometer and gyroscope o
 ## Installation
 
 ```sh
-cd Downloads/  
+cd ~/Downloads/ && sudo rm -rf mpu6050  
 git clone https://github.com/everylumi/mpu6050.git
 cd mpu6050/  
 sudo python3 setup.py install #Python3  
 sudo python setup.py install #Python2
 ```
 
+
+## Unnstallation
+
+```sh
+sudo python3 uninstall #Python3  
+sudo python uninstall #Python2
+```
 
 ## Connection
 
@@ -57,28 +64,47 @@ Within Python, the device can be used like this:
 
 ```python
 from mpu6050 import mpu6050
-from time import sleep
+import time
 
 sensor = mpu6050(0x68)   # Slave : 0x69
 
+'''
+Select Scale range
+Accelerometer: ACCEL_RANGE_2G, ACCEL_RANGE_4G, ACCEL_RANGE_8G, ACCEL_RANGE_16G  
+Gyroscope: GYRO_RANGE_250DEG, GYRO_RANGE_500DEG, GYRO_RANGE_1000DEG, GYRO_RANGE_2000DEG 
+'''
+#sensor.set_aceel_range(sensor.ACCEL_RANGE_2G)   #defalut: ACCEL_RANGE_2G
+#sensor.set_gyro_range(sensor.GYRO_RANGE_250DEG) #defalut: AGYRO_RANGE_250DEG
+
 while True:
+
+    # Accelerometer data
+    print("\nAccelerometer data")
     accel_data = sensor.get_accel_data()
-    gyro_data = sensor.get_gyro_data()
-    temp = sensor.get_temp()
+    print(" x: " + str(accel_data['x']))
+    print(" y: " + str(accel_data['y']))
+    print(" z: " + str(accel_data['z']))
+    
+    # Accelerometer angle data
+    accel_date_angle = sensor.get_accel_rotation()
+    print(" - X_Rotation: ",round(accel_date_angle['y'],1), "\u00b0")
+    print(" - Y_Rotation: ",round(accel_date_angle['x'],1), "\u00b0")
+    print(" - Z_Rotation: ",round(accel_date_angle['z'],1), "\u00b0")
 
-    print("Accelerometer data")
-    print("x: " + str(accel_data['x']))
-    print("y: " + str(accel_data['y']))
-    print("z: " + str(accel_data['z']))
-
+    # Gyroscope data, unit: degree/sec
     print("Gyroscope data")
-    print("x: " + str(gyro_data['x']))
-    print("y: " + str(gyro_data['y']))
-    print("z: " + str(gyro_data['z']))
+    gyro_data = sensor.get_gyro_data()
+    print(" x: " + str(gyro_data['x']))
+    print(" y: " + str(gyro_data['y']))
+    print(" z: " + str(gyro_data['z']))
 
-    print("Temp: " + str(temp) + " C")
-    sleep(0.5)
+    # Temperature
+    temp = sensor.get_temp()
+    print("Temp: ",round(temp,1), "\u00b0C")
+ 
+    time.sleep(0.5)
 ```
+
 
 ## License
 
