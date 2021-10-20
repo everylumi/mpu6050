@@ -14,11 +14,11 @@ sudo python setup.py install #Python2
 ```
 
 
-## Unnstallation
+## Uninstallation
 
 ```sh
-sudo python3 uninstall #Python3  
-sudo python uninstall #Python2
+sudo pip3 uninstall #Python3  
+sudo pip uninstall #Python2
 ```
 
 ## Connection
