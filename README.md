@@ -10,15 +10,15 @@ cd ~/Downloads/ && sudo rm -rf mpu6050
 git clone https://github.com/everylumi/mpu6050.git
 cd mpu6050/  
 sudo python3 setup.py install #Python3  
-sudo python setup.py install #Python2
+sudo python setup.py install  #Python2
 ```
 
 
 ## Uninstallation
 
 ```sh
-sudo pip3 uninstall #Python3  
-sudo pip uninstall #Python2
+sudo pip3 uninstall mpu6050  #Python3  
+sudo pip uninstall mpu6050   #Python2
 ```
 
 ## Connection
